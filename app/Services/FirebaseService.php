@@ -12,7 +12,7 @@ class FirebaseService
 
     public function __construct()
     {
-        $firebaseCredentialsPath = env('FIREBASE_CREDENTIALS', '/etc/secrets/firebase.json');
+        $firebaseCredentialsPath = env('FIREBASE_CREDENTIALS', '/etc/secrets/url-shortener-18438-firebase-adminsdk-fbsvc-e78a3f1a02.json');
 
         if (!file_exists($firebaseCredentialsPath)) {
             throw new \Exception("Firebase credentials file not found at: {$firebaseCredentialsPath}");
