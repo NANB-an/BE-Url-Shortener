@@ -47,9 +47,9 @@ class ShortUrlController extends Controller
         
         
        //dev mode
-        if ($ip === '127.0.0.1') {
-            $ip = '8.8.8.8'; // Google's IP (United States)
-        }
+        // if ($ip === '127.0.0.1') {
+        //     $ip = '8.8.8.8'; // Google's IP (United States)
+        // }
         // dev mode
         $position = Location::get($ip);
         $country = $position ? $position->countryName : 'Unknown';
