@@ -19,8 +19,7 @@ WORKDIR /var/www
 # Copy app files
 COPY . .
 
-# Create .env file for any scripts relying on it
-COPY .env.example .env
+
 
 # Install dependencies
 RUN composer install --no-dev --optimize-autoloader
