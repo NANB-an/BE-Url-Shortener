@@ -28,7 +28,27 @@ Route::middleware(['firebase.auth'])->group(function () {
     Route::get('/getcodes', [ShortUrlController::class, 'getCodes']);
 });
 Route::middleware('firebase.auth')->post('/sync-user', function () {
-    return response()->json(['status' => 'User synced', 'user' => auth()->user()]);
+    try {
+        $user = auth()->user(); // this may be null
+
+        \Log::info('Authenticated user:', ['user' => $user]);
+
+        return response()->json([
+            'status' => 'User synced',
+            'user' => $user,
+        ]);
+    } catch (\Throwable $e) {
+        \Log::error('sync-user route error', [
+            'message' => $e->getMessage(),
+            'trace' => $e->getTraceAsString(),
+        ]);
+
+        return response()->json([
+            'error' => 'Internal Server Error',
+            'message' => $e->getMessage(),
+        ], 500);
+    }
 });
+
 
 
