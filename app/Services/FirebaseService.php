@@ -12,9 +12,29 @@ class FirebaseService
 
     public function __construct()
     {
+        $serviceAccountPath = $this->prepareFirebaseCredentials();
+        
         $this->auth = (new Factory)
-            ->withServiceAccount(base_path(env('FIREBASE_CREDENTIALS')))
+            ->withServiceAccount($serviceAccountPath)
             ->createAuth();
+    }
+
+    protected function prepareFirebaseCredentials(): string
+    {
+        // Path where we'll store the decoded JSON file
+        $targetPath = storage_path('app/firebase.json');
+
+        // Only decode and write if file doesn't already exist
+        if (!file_exists($targetPath)) {
+            $base64 = env('FIREBASE_CREDENTIALS_B64');
+            if (!$base64) {
+                throw new \Exception('Firebase credentials are missing.');
+            }
+
+            file_put_contents($targetPath, base64_decode($base64));
+        }
+
+        return $targetPath;
     }
 
     public function verifyIdToken(string $idToken)
