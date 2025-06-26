@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo pdo_mysql zip mbstring
 
 # ✅ Install MongoDB PHP extension
-RUN pecl install mongodb \
+RUN pecl install mongodb-1.11.1 \
     && docker-php-ext-enable mongodb
 
 # ✅ Install Composer
