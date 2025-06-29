@@ -108,7 +108,7 @@ class ShortUrlController extends Controller
         }
 
         // MongoDB uses _id for primary keys
-        $codes = ShortUrl::where('user_id', $user->_id)->pluck('short_code');
+        $codes = ShortUrl::where('user_id', $user->_id)->pluck('original_url');
 
         return response()->json($codes);
     }
