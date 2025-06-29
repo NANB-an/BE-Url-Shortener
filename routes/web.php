@@ -13,6 +13,7 @@ use App\Http\Controllers\ShortUrlController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/r/{code}', [ShortUrlController::class, 'redirect']);
 
 
 
