@@ -100,16 +100,16 @@ class ShortUrlController extends Controller
 
 
     public function getCodes()
-    {
-        $user = Auth::user();
+        {
+            $user = Auth::user();
 
-        if (!$user) {
-            return response()->json(['message' => 'Unauthorized'], 401);
+            if (!$user) {
+                return response()->json(['message' => 'Unauthorized'], 401);
+            }
+
+            $codes = ShortUrl::where('user_id', $user->_id)
+                            ->get(['short_code', 'original_url']);
+
+            return response()->json($codes);
         }
-
-        // MongoDB uses _id for primary keys
-        $codes = ShortUrl::where('user_id', $user->_id)->pluck(['short_code', 'original_url']);
-
-        return response()->json($codes);
-    }
 }
