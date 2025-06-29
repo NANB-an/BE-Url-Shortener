@@ -85,6 +85,7 @@ class ShortUrlController extends Controller
 
         return response()->json([
             'total_clicks' => $clicks->count(),
+            'original_url' => $shortUrl->original_url,
             'by_country' => $clicks->groupBy('country')->map->count(),
             'by_referrer' => $clicks->groupBy('referrer')->map->count(),
             'timestamps' => $clicks->pluck('clicked_at')->map(function ($ts) {
